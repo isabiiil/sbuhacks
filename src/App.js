@@ -1,15 +1,13 @@
 import React, { Component, useMemo } from "react";
 import './App.css';
-import Mapdata from "./server/2022_JULY.json";
+import Takeout from "./server/2022_JULY.json";
 import Data from './components/data';
 import { GoogleMap, LoadScript, MarkerF, Polyline } from "@react-google-maps/api";
-
-// const GOOGLE_MAP_API = process.env.GOOGLE_MAP_API;
-// console.log("API KEY: " + GOOGLE_MAP_API);
+import Pin from './assets/pin.png';
 
 const containerStyle = {
-  width: '800px',
-  height: '800px'
+  width: '100vw',
+  height: '100vh'
 };
 
 const center = {
@@ -29,10 +27,10 @@ const paths = [
 ]
 
 const options = {
-  strokeColor: '#FF0000',
+  strokeColor: '#00F',
   strokeOpacity: 0.8,
   strokeWeight: 2,
-  fillColor: '#FF0000',
+  fillColor: '#00F',
   fillOpacity: 0.35,
   clickable: false,
   draggable: false,
@@ -52,63 +50,53 @@ const onLoad = polyline => {
 };
 
 class App extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      Mapdata: Mapdata.timelineObjects
-    }
-  }
-
   render(){
-    const mapdata = this.state;
+    const data = Takeout.timelineObjects;
+
     return(
       <div className="app">
-        <div>hello sanity check</div>
-        <LoadScript
-          googleMapsApiKey="AIzaSyA5qz7stbp7962yxHp_Udjp0rf_ZuIP2a0"
-        >
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
             zoom={10}
           >
             { /* Child components, such as markers, info windows, etc. */ }
-            {/* <MarkerF
-              icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-              position={mark}
-            /> */}
-            {paths.map((path, index) => {
-              return (
-                <MarkerF
-                  icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-                  position={path}
-                  key={index}
-                />
-              )
-            })}
-            {/* {mapdata.map((timelineObjects, index) => {
-              const pins = timelineObjects.placeVisit;
-              const location = {
-                lat: pins.location.latitudeE7,
-                lng: pins.location.longitudeE7
-              }
-              if(typeof(pins) == "object"){
-                // return (
-                //   <MarkerF
-                //     icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-                //     position={location}
-                //   />
-                console.log('yeet');
-                
-              }
-            })} */}
-            {/* <Polyline
+            {Object.keys(data).map((item, index) => {
+                if (typeof(data[item].placeVisit) != 'undefined') {
+                  const places = data[item].placeVisit.location
+                  const asArray = Object.entries(places);
+                  const filtered = asArray.filter((item) => item.visitConfidence == 71);
+                  const justStrings = Object.fromEntries(filtered);
+                  // Object.values(places).forEach(key => {
+                  //   // if (places[key] == 'name') {
+                  //     console.log(places[key])
+                  //   // };
+                  // });
+                  // console.log((Object.keys(places).includes('name')) ? "yes" : "no")
+                  console.log(justStrings)
+                  const latitude = places.latitudeE7 / 10000000
+                  const longitude = places.longitudeE7 / 10000000
+                  // const latitude = justStrings.latitudeE7 / 10000000
+                  // const longitude = justStrings.longitudeE7 / 10000000
+                  return (
+                    <MarkerF
+                      icon={{
+                        path: {Pin}
+                      }}
+                      position={
+                        {lat: latitude, lng: longitude}
+                      }
+                      key={index}
+                    />
+                  ) 
+                }
+              })}
+            <Polyline
               onLoad={onLoad}
-              path={path}
+              path={paths}
               options={options}
-            /> */}
+            />
           </GoogleMap>
-        </LoadScript>
         {/* <Data mapdata={mapdata} /> */}
       </div>
       );

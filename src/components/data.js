@@ -9,7 +9,7 @@ const DataDisplay = ({mapdata}) => mapdata.map((timelineObjects, index) => {
     // console.log(typeof(pins));
     if(typeof(pins) == "object"){
         // console.log(pins);
-        console.log(pins.location.address, pins.location.latitudeE7, pins.location.longitudeE7)
+        console.log(pins.location.address, pins.location.latitudeE7, pins.location.longitudeE7, pins.duration.startTimestamp)
     }
     // for(const item in pins) {
     //     if(typeof(item) != "undefined"){
