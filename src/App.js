@@ -20,11 +20,11 @@ const mark = {
   lng: -73.9908372
 }
 
-const paths = [
-  {lat: 40.7300939, lng: -73.9908372},
-  {lat: 40.7748300, lng: -73.9542110},
-  {lat: 40.7546795, lng: -73.9870291},
-]
+// const paths = [
+//   {lat: 40.7300939, lng: -73.9908372},
+//   {lat: 40.7748300, lng: -73.9542110},
+//   {lat: 40.7546795, lng: -73.9870291},
+// ]
 
 const options = {
   strokeColor: '#00F',
@@ -52,6 +52,7 @@ const onLoad = polyline => {
 class App extends Component{
   render(){
     const data = Takeout.timelineObjects;
+    const paths = []
 
     return(
       <div className="app">
@@ -64,25 +65,25 @@ class App extends Component{
             {Object.keys(data).map((item, index) => {
                 if (typeof(data[item].placeVisit) != 'undefined') {
                   const places = data[item].placeVisit.location
-                  const asArray = Object.entries(places);
-                  const filtered = asArray.filter((item) => item.visitConfidence == 71);
-                  const justStrings = Object.fromEntries(filtered);
+                  // const asArray = Object.entries(places);
+                  // const filtered = asArray.filter((item) => item.visitConfidence == 71);
+                  // const justStrings = Object.fromEntries(filtered);
                   // Object.values(places).forEach(key => {
                   //   // if (places[key] == 'name') {
                   //     console.log(places[key])
                   //   // };
                   // });
                   // console.log((Object.keys(places).includes('name')) ? "yes" : "no")
-                  console.log(justStrings)
+                  // console.log(justStrings)
                   const latitude = places.latitudeE7 / 10000000
                   const longitude = places.longitudeE7 / 10000000
                   // const latitude = justStrings.latitudeE7 / 10000000
                   // const longitude = justStrings.longitudeE7 / 10000000
                   return (
                     <MarkerF
-                      icon={{
-                        path: {Pin}
-                      }}
+                      // icon={{
+                      //   path: {Pin}
+                      // }}
                       position={
                         {lat: latitude, lng: longitude}
                       }
@@ -91,11 +92,28 @@ class App extends Component{
                   ) 
                 }
               })}
-            <Polyline
-              onLoad={onLoad}
-              path={paths}
-              options={options}
-            />
+              {Object.keys(data).map((item, index) => {
+                if(typeof(data[item].placeVisit) != 'undefined') {
+                  if (typeof(data[item].placeVisit.location) != 'undefined' && typeof(data[item].placeVisit.duration) != 'undefined') {
+                    const times = data[item].placeVisit.duration;
+                    const places = data[item].placeVisit.location;
+                    const latitude = places.latitudeE7 / 10000000
+                    const longitude = places.longitudeE7 / 10000000
+                    var position = {lat: latitude, lng: longitude}
+                    paths.push(position);
+                }
+              }})}
+              {Object.keys(data).map((item, index) => {
+                if(typeof(data[item].placeVisit) != 'undefined') {
+                  if (typeof(data[item].placeVisit.location) != 'undefined' && typeof(data[item].placeVisit.duration) != 'undefined') {
+                  return (
+                      <Polyline
+                        onLoad={onLoad}
+                        path={paths}
+                        options={options}
+                      />
+                    )}}})}
+              {/* })} */}
           </GoogleMap>
         {/* <Data mapdata={mapdata} /> */}
       </div>
