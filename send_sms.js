@@ -9,7 +9,7 @@ const client = require('twilio')(accountSid, authToken);
 
 client.messages
   .create({
-     body: 'Remember this time last year? You went to Las Vegas, NV and stayed at the Bellagio. Here are photos.',
+    body: 'Remember this time last year? You went to Las Vegas, NV and stayed at the Bellagio. Here are photos.',
     from: '+18507509751',
     to: '+13472720992'
    })
