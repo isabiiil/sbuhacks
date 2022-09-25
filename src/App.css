@@ -5,4 +5,14 @@
   width: 60vw;
   height: 30vh;
   padding: 12vh 16vw;
+  margin: 0 auto;
+}
+
+.container > p {
+  font-size: 20px;
+  text-align: justify;
+}
+
+.container > h1 {
+  font-size: 40px;
 }

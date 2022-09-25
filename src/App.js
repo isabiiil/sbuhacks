@@ -1,10 +1,14 @@
-import React, { Component, useMemo } from "react";
+import React, { useState } from "react";
 import './App.css';
-import Takeout from "./server/2022_JULY.json";
+import Takeout0722 from "./server/2022_JULY.json";
+import Takeout0622 from "./server/2022_JUNE.json";
+import Takeout1220 from './server/2020_DECEMBER.json';
+import Takeout0920 from "./server/2020_SEPTEMBER.json";
 import Data from './components/data';
 import { GoogleMap, LoadScript, MarkerF, Polyline } from "@react-google-maps/api";
 import Pin from './assets/pin.png';
-import Blurb from './components/Blurb.jsx'
+import Blurb from './components/Blurb.jsx';
+import InfoWindow from './components/InfoWindow.jsx';
 
 const containerStyle = {
   width: '100vw',
@@ -21,12 +25,6 @@ const mark = {
   lng: -73.9908372
 }
 
-// const paths = [
-//   {lat: 40.7300939, lng: -73.9908372},
-//   {lat: 40.7748300, lng: -73.9542110},
-//   {lat: 40.7546795, lng: -73.9870291},
-// ]
-
 const options = {
   strokeColor: '#00F',
   strokeOpacity: 0.8,
@@ -41,57 +39,64 @@ const options = {
   zIndex: 1
 };
 
-const onLoad = polyline => {
-  console.log('polyline: ', polyline)
-};
 
-class App extends Component{
-  render(){
-    const data = Takeout.timelineObjects;
-    const paths = []
+// const onLoad = polyline => {
+//   console.log('polyline: ', polyline)
+// };
+
+export default function App(){
+    const paths = [];
+    const [showMessage, setShowMessage] = useState(false);
+    const [data, setData] = useState(Takeout0622.timelineObjects);
+    // function display() {
+    //   switch(data) {
+    //     case '0920':
+    //       setData(Takeout0920);
+    //     case '1220':
+    //       setData(Takeout1220);
+    //     case '0722':
+    //       setData(Takeout0722);
+    //     default:
+    //       setData({});
+    //   }
+    // }
 
     return(
       <div className="app">
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={10}
+            zoom={14}
           >
             { /* Child components, such as markers, info windows, etc. */ }
             {Object.keys(data).map((item, index) => {
                 if (typeof(data[item].placeVisit) != 'undefined') {
-                  const places = data[item].placeVisit.location
-                  // const asArray = Object.entries(places);
-                  // const filtered = asArray.filter((item) => item.visitConfidence == 71);
-                  // const justStrings = Object.fromEntries(filtered);
-                  // Object.values(places).forEach(key => {
-                  //   // if (places[key] == 'name') {
-                  //     console.log(places[key])
-                  //   // };
-                  // });
-                  // console.log((Object.keys(places).includes('name')) ? "yes" : "no")
-                  // console.log(justStrings)
-                  const latitude = places.latitudeE7 / 10000000
-                  const longitude = places.longitudeE7 / 10000000
-                  // const latitude = justStrings.latitudeE7 / 10000000
-                  // const longitude = justStrings.longitudeE7 / 10000000
+                  const places = data[item].placeVisit.location;
+                  const latitude = places.latitudeE7 / 10000000;
+                  const longitude = places.longitudeE7 / 10000000;
                   return (
                     <MarkerF
-                      // icon={{
-                      //   path: {Pin}
-                      // }}
                       position={
                         {lat: latitude, lng: longitude}
                       }
                       key={index}
+                    //   onClick={() => {
+                    //     setShowMessage(!showMessage);
+                    //   }}
                     />
+                    //   {showMessage && (
+                    //     <InfoWindow>
+                    //       <h4>blah</h4>
+                    //     </InfoWindow>
+                    //   )}
+                    // </MarkerF>
                   ) 
                 }
               })}
               {Object.keys(data).map((item, index) => {
                 if(typeof(data[item].placeVisit) != 'undefined') {
                   if (typeof(data[item].placeVisit.location) != 'undefined' && typeof(data[item].placeVisit.duration) != 'undefined') {
-                    const times = data[item].placeVisit.duration;
+                    // const times = data[item].placeVisit.duration;
                     const places = data[item].placeVisit.location;
                     const latitude = places.latitudeE7 / 10000000
                     const longitude = places.longitudeE7 / 10000000
@@ -104,7 +109,7 @@ class App extends Component{
                   if (typeof(data[item].placeVisit.location) != 'undefined' && typeof(data[item].placeVisit.duration) != 'undefined') {
                   return (
                       <Polyline
-                        onLoad={onLoad}
+                        // onLoad={onLoad}
                         path={paths}
                         options={options}
                       />
@@ -112,10 +117,10 @@ class App extends Component{
               {/* })} */}
           </GoogleMap>
         {/* <Data mapdata={mapdata} /> */}
+        <p onClick={() => setData(Takeout0920.timelineObjects)}>September 2020</p>
+        <p onClick={() => setData(Takeout1220.timelineObjects)}>December 2020</p>
+        <p onClick={() => setData(Takeout0722.timelineObjects)}>July 2022</p>
         <Blurb />
       </div>
       );
-    }
-  }
-  
-  export default App;
+}
