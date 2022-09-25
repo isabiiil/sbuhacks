@@ -132,7 +132,7 @@ export default function App(){
               {/* })} */}
           </GoogleMap>
         {/* <Data mapdata={mapdata} /> */}
-        <h1 style={{padding: '1vw', textAlign: 'center'}}>Which month's adventure would you like to explore?</h1>
+        <h1 style={{padding: '1vw', textAlign: 'center'}}>Which month's adventure would you like to remember?</h1>
         <div style={styles.row}>
           {/* {Object.keys(buttons).forEach((key, index) => {
             return (
