@@ -4,10 +4,11 @@ import Takeout from "./server/2022_JULY.json";
 import Data from './components/data';
 import { GoogleMap, LoadScript, MarkerF, Polyline } from "@react-google-maps/api";
 import Pin from './assets/pin.png';
+import Blurb from './components/Blurb.jsx'
 
 const containerStyle = {
   width: '100vw',
-  height: '100vh'
+  height: '90vh'
 };
 
 const center = {
@@ -37,11 +38,6 @@ const options = {
   editable: false,
   visible: true,
   radius: 30000,
-  paths: [
-    {lat: 40.7300939, lng: -73.9908372},
-    {lat: 40.7748300, lng: -73.9542110},
-    {lat: 40.7546795, lng: -73.9870291},
-  ],
   zIndex: 1
 };
 
@@ -116,6 +112,7 @@ class App extends Component{
               {/* })} */}
           </GoogleMap>
         {/* <Data mapdata={mapdata} /> */}
+        <Blurb />
       </div>
       );
     }
