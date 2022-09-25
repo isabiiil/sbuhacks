@@ -10,6 +10,8 @@ import Button from './components/Button.jsx'
 import Takeout0722 from "./server/2022_JULY.json";
 import Takeout0622 from "./server/2022_JUNE.json";
 import Takeout1220 from './server/2020_DECEMBER.json';
+import Takeout1120 from "./server/2020_NOVEMBER.json";
+import Takeout1020 from "./server/2020_OCTOBER.json";
 import Takeout0920 from "./server/2020_SEPTEMBER.json";
 
 
@@ -24,7 +26,7 @@ const styles = {
     width: '100vw'
   },
   buttonText: {
-    margin: '0',
+    margin: '0 auto',
     lineHeight: '50px'
   }
 };
@@ -61,6 +63,27 @@ const options = {
 export default function App(){
     const paths = [];
     const [data, setData] = useState(Takeout0622.timelineObjects);
+    const takeouts = [
+      "Takeout0920.timelineObjects",
+      "Takeout1020.timelineObjects",
+      "Takeout1120.timelineObjects",
+      "Takeout1220.timelineObjects",
+      "Takeout0622.timelineObjects", 
+      "Takeout0722.timelineObjects",
+    ]
+    const takeoutDates = [
+      "Sep 2020",
+      "Oct 2020",
+      "Nov 2020",
+      "Dec 2020",
+      "June 2022",
+      "July 2022"
+    ]
+
+    const buttons = {
+      "Sep 2020": "Takeout0920.timelineObjects",
+      "Oct 2020": "Takeout1020.timelineObjects",
+    }
 
     return(
       <div className="app">
@@ -111,14 +134,30 @@ export default function App(){
         {/* <Data mapdata={mapdata} /> */}
         <h1 style={{padding: '1vw', textAlign: 'center'}}>Which month's adventure would you like to explore?</h1>
         <div style={styles.row}>
+          {/* {Object.keys(buttons).forEach((key, index) => {
+            return (
+              <Button>
+                <p style={styles.buttonText} onClick={() => setData(buttons[key])}>{key}</p>
+              </Button>
+            )
+          })} */}
           <Button>
-            <p style={styles.buttonText} onClick={() => setData(Takeout0920.timelineObjects)}>September 2020</p>
+            <p style={styles.buttonText} onClick={() => setData(Takeout0920.timelineObjects)}>Sep 2020</p>
           </Button>
           <Button>
-            <p style={styles.buttonText} onClick={() => setData(Takeout1220.timelineObjects)}>December 2020</p>
+            <p style={styles.buttonText} onClick={() => setData(Takeout1020.timelineObjects)}>Oct 2020</p>
           </Button>
           <Button>
-            <p style={styles.buttonText} onClick={() => setData(Takeout0722.timelineObjects)}>July 2022</p>
+            <p style={styles.buttonText} onClick={() => setData(Takeout1120.timelineObjects)}>Nov 2020</p>
+          </Button>
+          <Button>
+            <p style={styles.buttonText} onClick={() => setData(Takeout1220.timelineObjects)}>Dec 2020</p>
+          </Button>
+          <Button>
+            <p style={styles.buttonText} onClick={() => setData(Takeout0622.timelineObjects)}>Jun 2022</p>
+          </Button>
+          <Button>
+            <p style={styles.buttonText} onClick={() => setData(Takeout0722.timelineObjects)}>Jul 2022</p>
           </Button>
         </div>
         <Blurb />

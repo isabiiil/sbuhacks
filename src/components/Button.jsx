@@ -13,13 +13,15 @@ const styles = {
     width: '200px',
     height: '50px',
     backgroundColor: 'aqua',
-    padding: '2vw',
-    margin: '0 4vw'
+    padding: '12px',
+    margin: '0 auto',
+    cursor: 'pointer',
   },
   text: {
     margin: '0 auto',
     fontSize: '24px',
     lineHeight: '1',
-    margin: '0'
+    margin: '0',
+    textAlign: 'center'
   }
 }
