@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+## Inspiration
+I've always had bad memory, but lately, I can't even remember my days anymore. Hours and days blur. I can't even see what happened last year. This has forced me to live in the moment since I won't remember anyway. I've coped with it through location history, time tracking, and calendar entries. However, other folks with amnesia may not have coping mechanisms that help them remember moments that couldn't form memories anymore. I want to help others keep their memories; lest we lose that which we can live for.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I was also inspired by my favorite game, Breath of the Wild. The Sheikah Slate contains the map of Hyrule, and it has a mechanic that allows the player to see the trail of their travelling. I would have wanted to see a visual map of my adventures over time just like this.
 
-## Available Scripts
+## What it does
+Users can view their location history on a map and see when and where they had their adventures. The map has pins for every location (that is on Google Map's Places API) and it's filtered by month and year. Users also have the option to turn on route tracking, but I hid it from the demo because the map gets too crowded with all my travelling. Notifications will remind the user about past trips and suggest photos to look at.
 
-In the project directory, you can run:
+## How I built it
+Using my own location history (from _Google Timeline_ through _Takeout_), I plotted the places on a map (using _Google Maps API_) I've visited based on when I visited. For the interface, I used _React_ with no UI libraries. The notifications are in the form of text messages by _Twilio_.
 
-### `npm start`
+## Challenges I ran into
+The location history was in the form of a huge complicated nested JSON that was confusing to parse. It took me hours just figuring out how to get the latitude and longitude of just the visited places (the same object has the route, but that's in the backlog for another time).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Accomplishments that I'm proud of
+I did this by myself, even though I haven't coded in like 3 months! This is also my first hackathon in months, after being so active before. I'm so proud of myself because I worked hard on this project and I did not give up (the rest of my team bailed before they could contribute). 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## What I learned
+I relearned how to code. I learned how to work with JSONs. I got better at using Google products, and I tried Twilio for the first time.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What's next for Hero's Path
+I would like it to have a better UI. I also wanted to include a tooltip that showed the user information about each visited location. I would want to include a Google Photos integration or similar so the map has photo locations. I have ambitious plans for the future of this product!
